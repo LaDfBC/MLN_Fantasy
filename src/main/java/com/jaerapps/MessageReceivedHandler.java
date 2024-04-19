@@ -13,7 +13,7 @@ import javax.annotation.Nonnull;
 public class MessageReceivedHandler {
     private final Logger LOGGER = LoggerFactory.getLogger(MessageReceivedHandler.class);
 
-//    private final GhostballCommand ghostballCommand;
+    private final AddPlayerCommand addPlayerCommand;
 //    private final SetSeasonCommand setSeasonCommand;
 //    private final SetSessionCommand setSessionCommand;
 //    private final GuessCommand guessCommand;
@@ -23,21 +23,9 @@ public class MessageReceivedHandler {
 
     @Inject
     public MessageReceivedHandler(
-//            @Nonnull final GhostballCommand ghostballCommand,
-//            @Nonnull final SetSeasonCommand setSeasonCommand,
-//            @Nonnull final SetSessionCommand setSessionCommand,
-//            @Nonnull final GuessCommand guessCommand,
-//            @Nonnull final ResolveCommand resolveCommand,
-//            @Nonnull final PointsCommand pointsCommand,
-//            @Nonnull final ExtractDataCommand extractDataCommand
+            @Nonnull final AddPlayerCommand addPlayerCommand
     ) {
-//        this.ghostballCommand = ghostballCommand;
-//        this.setSeasonCommand = setSeasonCommand;
-//        this.setSessionCommand = setSessionCommand;
-//        this.guessCommand = guessCommand;
-//        this.resolveCommand = resolveCommand;
-//        this.pointsCommand = pointsCommand;
-//        this.extractDataCommand = extractDataCommand;
+        this.addPlayerCommand = addPlayerCommand;
     }
 
     public MessageResponder handleMessage(SlashCommandInteractionEvent event) {
@@ -48,9 +36,9 @@ public class MessageReceivedHandler {
             case HELP:
                 responder.addMessage(new HelpCommand().runCommand(event));
                 break;
-//            case GHOSTBALL:
-//                responder.addMessage(ghostballCommand.runCommand(event));
-//                break;
+            case ADD_PLAYER:
+                responder.addMessage(addPlayerCommand.runCommand(event));
+                break;
             default:
                 responder.addMessage(ResponseMessageBuilder.buildErrorResponse(
                         "Unrecognized command: " +
